@@ -1,4 +1,5 @@
 import Avaliacao from './avaliacao.mjs';
+import Cardapio from './cardapio.mjs';
 
 let restaurante = []
 
@@ -7,13 +8,15 @@ let restaurante = []
     #nome;
     #categoria;
     #ativo;   
-    #avaliacao
+    #avaliacao;
+    #cardapio
 
     constructor(nome,categoria){
         this.#nome = nome;
         this.#categoria = categoria;
         this.#ativo = false;
         this.#avaliacao = [];
+        this.#cardapio = []
 
     }
     notaClassificacao(cliente,nota){
@@ -38,6 +41,16 @@ let restaurante = []
     trocarStatus(){
         this.#ativo = !this.#ativo
     }
+    addCardapio(item){
+        if(Cardapio.prototype.isPrototypeOf(item)){
+            this.#cardapio.push(item)
+        }
+    }
+    get showCardapio(){
+
+       this.#cardapio.forEach((element)=> console.log(`Nome:${element.tipo} preco: ${element.preco}`))
+            
+    }
     #objeto(){
         return({
         nome: this.#nome,
@@ -49,14 +62,3 @@ let restaurante = []
         return this.#objeto
     }
 }
-
-
-const restaurantePraca = new Restaurante('Praca','Italiana')
-const restauranteMexicano = new Restaurante('Nachos','Mexicano')
-
-restaurantePraca.notaClassificacao('Carla',5)
-restaurantePraca.trocarStatus()
-
-restaurante.push(restaurantePraca.objeto())
-restaurante.push(restauranteMexicano.objeto())
-console.log(restaurante)
